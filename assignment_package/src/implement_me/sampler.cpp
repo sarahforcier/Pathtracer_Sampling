@@ -1,5 +1,6 @@
 #include "sampler.h"
 #include "warpfunctions.h"
+#include <iostream>
 
 Sampler::Sampler() : thetaMax(150)
 {}
@@ -46,12 +47,12 @@ void Sampler::generateSamples(int& numSamples, SampleMode sampleMode, WarpMethod
 
         case GRID:
             //TODO
-            throw std::runtime_error("You haven't yet implemented grid sampling!");
+            sample = invSqrtVal * glm::vec2(x + 0.5f, y + 0.5f);
             break;
 
         case STRATIFIED:
             //TODO
-            throw std::runtime_error("You haven't yet implemented stratified sampling!");
+            sample = invSqrtVal * glm::vec2(x + + 0.5f + rng.nextFloat(), y + 0.5f + rng.nextFloat());
             break;
         }
 
