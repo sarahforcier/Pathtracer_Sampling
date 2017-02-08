@@ -41,7 +41,7 @@ glm::vec3 WarpFunctions::squareToDiskConcentric(const glm::vec2 &sample)
 float WarpFunctions::squareToDiskPDF(const glm::vec3 &sample)
 {
     //TODO
-    return 1/ M_PI;
+    return 1/ M_PI; //radius = 1
 }
 
 glm::vec3 WarpFunctions::squareToSphereUniform(const glm::vec2 &sample)
@@ -60,7 +60,7 @@ float WarpFunctions::squareToSphereUniformPDF(const glm::vec3 &sample)
 glm::vec3 WarpFunctions::squareToSphereCapUniform(const glm::vec2 &sample, float thetaMin)
 {
     //TODO
-    float z = 1.f - 2.f * sample.x/thetaMin;
+    float z = 1.f - 2.f * sample.x * (180 - thetaMin) / 180;
     float r = glm::sqrt(glm::max(0.f, 1.f - z * z));
     float phi = 2.f * M_PI * sample.y;
     return glm::vec3(r * glm::cos(phi), r * glm::sin(phi), z);
@@ -69,7 +69,7 @@ glm::vec3 WarpFunctions::squareToSphereCapUniform(const glm::vec2 &sample, float
 float WarpFunctions::squareToSphereCapUniformPDF(const glm::vec3 &sample, float thetaMin)
 {
     //TODO
-    return INV_TWOPI / (1 - glm::cos(thetaMin)); //inverse area
+    return INV_TWOPI / (1 - glm::cos((180 - thetaMin)/180 * M_PI)); //inverse area
 }
 
 glm::vec3 WarpFunctions::squareToHemisphereUniform(const glm::vec2 &sample)
